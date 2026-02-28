@@ -1,0 +1,32 @@
+import pandas as pd
+
+df = pd.read_csv("student-data.csv")
+
+print("First 5 rows of the dataset:")
+print(df.head())
+
+print("\nDataset Information:")
+print(df.info())
+
+print("\nMissing values in each column:")
+print(df.isnull().sum())
+
+df = df.drop_duplicates()
+
+print("\nNumber of duplicate rows after cleaning:")
+print(df.duplicated().sum())
+
+df.fillna(df.mean(numeric_only=True), inplace=True)
+
+# Fill remaining missing (categorical) values with 'Unknown'
+df.fillna("Unknown", inplace=True)
+
+print("\nData types after cleaning:")
+print(df.dtypes)
+
+print("\nCleaned dataset preview:")
+print(df.head())
+
+df.to_csv("cleaned_student_data.csv", index=False)
+
+print("\nCleaned dataset saved successfully as 'cleaned_student_data.csv'")
